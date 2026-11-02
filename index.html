@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D1124241707林俊祥</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: #0f172a; /* Fallback dark */
+            overflow: hidden;
+            /* Animated futuristic background */
+            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #020617 100%);
+        }
+
+        .tech-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Glassmorphism Panel */
+        .glass-panel {
+            background: rgba(17, 25, 40, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 0 1px rgba(255,255,255,0.05);
+        }
+
+        /* Neon Glow Inputs */
+        .neon-input {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        .neon-input:focus {
+            outline: none;
+            border-color: #06b6d4; /* Cyan-500 */
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.5), inset 0 0 5px rgba(6, 182, 212, 0.3);
+        }
+
+        /* Neon Button */
+        .neon-btn {
+            background: linear-gradient(90deg, #06b6d4 0%, #3b82f6 100%);
+            border: none;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .neon-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+        .neon-btn:hover {
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+            transform: translateY(-2px);
+        }
+        .neon-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Floating background orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+        .orb-1 { width: 300px; height: 300px; background: rgba(6, 182, 212, 0.3); top: -10%; left: -10%; }
+        .orb-2 { width: 400px; height: 400px; background: rgba(59, 130, 246, 0.2); bottom: -10%; right: -10%; animation-delay: -5s; }
+        .orb-3 { width: 250px; height: 250px; background: rgba(168, 85, 247, 0.2); top: 40%; left: 60%; animation-delay: -2s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        /* Result reveal animation */
+        #result-container {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in;
+        }
+        #result-container.show {
+            max-height: 250px;
+            opacity: 1;
+        }
+
+        /* Status Colors */
+        .status-underweight { color: #38bdf8; text-shadow: 0 0 10px rgba(56, 189, 248, 0.6); } /* Sky blue */
+        .status-normal { color: #4ade80; text-shadow: 0 0 10px rgba(74, 222, 128, 0.6); } /* Green */
+        .status-overweight { color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.6); } /* Amber */
+        .status-obese { color: #f87171; text-shadow: 0 0 10px rgba(248, 113, 113, 0.6); } /* Red */
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 text-gray-200">
+
+    <!-- Decorative Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Main Calculator Container -->
+    <div class="glass-panel w-full max-w-md rounded-3xl p-8 relative z-10">
+        
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="tech-font text-3xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-2 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]">
+                D1124241707林俊祥
+            </h1>
+            <p class="text-xs text-gray-400 uppercase tracking-[0.2em]">Body Mass Index Evaluator</p>
+        </div>
+
+        <!-- Input Form -->
+        <div class="space-y-6">
+            <!-- Height Input -->
+            <div class="relative">
+                <label for="height" class="block text-xs uppercase tracking-widest text-gray-400 mb-2 ml-1">Height (cm)</label>
+                <div class="relative">
+                    <input type="number" id="height" placeholder="e.g. 175" class="neon-input w-full rounded-xl py-3 pl-4 pr-12 text-lg tech-font transition-colors">
+                    <span class="absolute right-4 top-1/2 -translate-y-1/2 text-cyan-500 font-bold opacity-70">CM</span>
+                </div>
+            </div>
+
+            <!-- Weight Input -->
+            <div class="relative">
+                <label for="weight" class="block text-xs uppercase tracking-widest text-gray-400 mb-2 ml-1">Weight (kg)</label>
+                <div class="relative">
+                    <input type="number" id="weight" placeholder="e.g. 68" class="neon-input w-full rounded-xl py-3 pl-4 pr-12 text-lg tech-font transition-colors">
+                    <span class="absolute right-4 top-1/2 -translate-y-1/2 text-cyan-500 font-bold opacity-70">KG</span>
+                </div>
+            </div>
+
+            <!-- Error Message Box -->
+            <div id="error-msg" class="text-red-400 text-sm font-semibold hidden text-center bg-red-500/10 py-2 rounded-lg border border-red-500/20">
+                <!-- Error text will appear here -->
+            </div>
+
+            <!-- Calculate Button -->
+            <button onclick="calculateBMI()" class="neon-btn w-full text-white font-bold py-4 rounded-xl text-lg tracking-widest uppercase mt-4">
+                Initialize Search
+            </button>
+        </div>
+
+        <!-- Result Section (Animated) -->
+        <div id="result-container" class="mt-8 pt-6 border-t border-white/10 text-center">
+            <h2 class="text-xs uppercase tracking-widest text-gray-400 mb-2">System Output</h2>
+            
+            <div class="flex items-center justify-center gap-4 mb-2">
+                <span class="text-gray-500 font-bold text-xl">BMI:</span>
+                <span id="bmi-value" class="tech-font text-5xl font-black text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
+                    00.0
+                </span>
+            </div>
+            
+            <div class="mt-4 inline-block px-6 py-2 rounded-full bg-black/40 border border-white/10 backdrop-blur-sm">
+                <span class="text-sm text-gray-300 mr-2">Status:</span>
+                <span id="bmi-category" class="font-bold uppercase tracking-wider text-lg">
+                    --
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function calculateBMI() {
+            const heightInput = document.getElementById('height').value;
+            const weightInput = document.getElementById('weight').value;
+            const errorMsg = document.getElementById('error-msg');
+            const resultContainer = document.getElementById('result-container');
+            const bmiValueEl = document.getElementById('bmi-value');
+            const bmiCategoryEl = document.getElementById('bmi-category');
+
+            // Reset UI state
+            errorMsg.classList.add('hidden');
+            resultContainer.classList.remove('show');
+
+            // Validation
+            if (!heightInput || !weightInput) {
+                showError("SYSTEM ERROR: Missing data inputs.");
+                return;
+            }
+
+            const height = parseFloat(heightInput);
+            const weight = parseFloat(weightInput);
+
+            if (height <= 0 || weight <= 0) {
+                showError("SYSTEM ERROR: Invalid physiological parameters.");
+                return;
+            }
+
+            // Calculation
+            const heightInMeters = height / 100;
+            const bmi = weight / (heightInMeters * heightInMeters);
+            const formattedBMI = bmi.toFixed(1);
+
+            // Determine Category (Taiwan Health Promotion Administration Standard)
+            let categoryText = "";
+            let categoryClass = "";
+
+            if (bmi < 18.5) {
+                categoryText = "體重過輕 (Underweight)";
+                categoryClass = "status-underweight";
+            } else if (bmi >= 18.5 && bmi < 24) {
+                categoryText = "正常範圍 (Normal)";
+                categoryClass = "status-normal";
+            } else if (bmi >= 24 && bmi < 27) {
+                categoryText = "體重過重 (Overweight)";
+                categoryClass = "status-overweight";
+            } else {
+                categoryText = "肥胖狀態 (Obese)";
+                categoryClass = "status-obese";
+            }
+
+            // Update DOM
+            // Slight delay to allow CSS transitions to reset before showing new data
+            setTimeout(() => {
+                bmiValueEl.textContent = formattedBMI;
+                bmiCategoryEl.textContent = categoryText;
+                
+                // Clear previous classes and add the new color class
+                bmiCategoryEl.className = "font-bold uppercase tracking-wider text-lg " + categoryClass;
+
+                // Animate in
+                resultContainer.classList.add('show');
+            }, 100);
+        }
+
+        function showError(message) {
+            const errorMsg = document.getElementById('error-msg');
+            errorMsg.textContent = message;
+            errorMsg.classList.remove('hidden');
+        }
+
+        // Add 'Enter' key support
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                calculateBMI();
+            }
+        });
+    </script>
+</body>
+</html>
